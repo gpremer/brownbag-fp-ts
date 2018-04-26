@@ -43,7 +43,7 @@ const double2: (n: number) => number = n => 2 * n
 
 ---
 
-=== Spelen met argumenten: currying
+### Spelen met argumenten: currying
 
 ```
 function sum(x: number, y: number): number {
@@ -59,8 +59,15 @@ function sum2(x: number): (y: number => number) {
 }
 
 const s2 = sum2(1)(2);
+```
 
-const sum3: (x: number) => (y: number) => number = x => y => x + y
+---
+
+### Spelen met argumenten: currying (2)
+
+```
+const sum3: (x: number) 
+  => (y: number) => number = x => y => x + y
 
 const s3 = sum3(1)(2);
 ```
