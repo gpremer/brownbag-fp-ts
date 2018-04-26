@@ -1,8 +1,13 @@
-= functional programming met fp-ts
+# functional programming met fp-ts
 
-== Functioneel programmeren
 
-=== Het fundament
+---
+
+## Functioneel programmeren
+
+----
+
+### Het fundament
 
 * Werken met functies net als met andere types
 
@@ -12,7 +17,9 @@
 
 * Patronen om functies te combineren
 
-=== Functioneel programmeren in Javascript
+----
+
+### Functioneel programmeren in Javascript
 
 * De normaalste zaak van de wereld: call-backs
 
@@ -20,7 +27,9 @@
 
 * Specificate in Fantasyland
 
-=== Functioneel programmeren in Typescript
+---
+
+### Functioneel programmeren in Typescript
 
 * Ontbrekende stuk van de puzzel: sterke typering
 
@@ -31,6 +40,9 @@ function double(n: number): number {
 
 const double2: (n: number) => number = n => 2 * n
 ```
+
+---
+
 === Spelen met argumenten: currying
 
 ```
@@ -52,7 +64,10 @@ const sum3: (x: number) => (y: number) => number = x => y => x + y
 
 const s3 = sum3(1)(2);
 ```
-=== Voorbeeld van higher order function
+
+---
+
+### Voorbeeld van higher order function
 
 ```
 const swapper: <A, B, C>(f: ((a: A, b: B) => C)) => ((b: B, a: A) => C) = f => (b, a) => f(a, b);
@@ -64,10 +79,14 @@ const revFormat = swapper(format);
 format(5, "EUR");
 revFormat("EUR", 5);
 ```
+----
 
-== Fp-ts
+## Fp-ts
 
-=== Intro
+---
+
+### Intro
 
 * Implementatie van concepten uit theorie rond FP
 
+---
