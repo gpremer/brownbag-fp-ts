@@ -77,7 +77,9 @@ const s3 = sum3(1)(2);
 ### Voorbeeld van higher order function
 
 ```
-const swapper: <A, B, C>(f: ((a: A, b: B) => C)) => ((b: B, a: A) => C) = f => (b, a) => f(a, b);
+const swapper: <A, B, C>(f: ((a: A, b: B) => C)) => 
+                        ((b: B, a: A) => C) 
+                        = f => (b, a) => f(a, b);
 
 const format = (n: number, s: string) => `${n} ${s}`;
 
