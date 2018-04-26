@@ -5,7 +5,7 @@
 
 ## Functioneel programmeren
 
-----
+---
 
 ### Het fundament
 
@@ -17,7 +17,7 @@
 
 * Patronen om functies te combineren
 
-----
+---
 
 ### Functioneel programmeren in Javascript
 
@@ -79,7 +79,8 @@ const revFormat = swapper(format);
 format(5, "EUR");
 revFormat("EUR", 5);
 ```
-----
+
+---
 
 ## Fp-ts
 
