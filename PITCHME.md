@@ -145,7 +145,7 @@ function quote(x: string): string {
   }
 }
 
-const quote: (x: string) = x => (!!x && unsafeQuote(x)) || ""; // :-(
+const quote: (x: string) = x => (!!x && unsafeQuote(x)) || "";
 ```
 
 * Wat met nesting?
@@ -168,7 +168,8 @@ const quote: (x: string) = x => (!!x && unsafeQuote(x)) || ""; // :-(
 ```
 
 ```
-  const quote: (ms: Option<string>) => Option<string> = ms => ms.map(unsafeQuote);
+  const quote: (ms: Option<string>) => Option<string> = 
+    ms => ms.map(unsafeQuote);
 
   const c1 = quote(some("Curry"));
   const c2 = quote(none);
@@ -209,15 +210,26 @@ nonEmpty("").chain(lookUp);
 
 * Van JS/TS naar Option: `fromNullable`, `fromPredicate`
 
+```
+const nonEmpty 
+  = (s: string) => s.length > 0;
+const asNonEmpty2 
+  = (s: string) => fromNullable(s).filter(nonEmpty);
+const asNonEmpty3 
+  = (s: string) => fromPredicate(nonEmpty)(s);
+const asNonEmpty4 
+  = fromPredicate(nonEmpty);
+const asNonEmpty5 
+  = pipe(fromNullable, filter(nonEmpty));
+```
+
++++
+
+#### Interoperabiliteit
+
 * Van Option naar JS/TS: `toNullable`, `toUndefined`, `getOrElse`, `getOrElseValue`, `fold`
 
 ```
-const nonEmpty = (s: string) => s.length > 0;
-const asNonEmpty2 = (s: string) => fromNullable(s).filter(nonEmpty);
-const asNonEmpty3 = (s: string) => fromPredicate(nonEmpty)(s);
-const asNonEmpty4 = fromPredicate(nonEmpty);
-const asNonEmpty5 = pipe(fromNullable, filter(nonEmpty));
-
 const s1: string = anOption.getOrElseValue("<null>"); // niet-lazy
 const s2: string = anOption.getOrElse(() => throw new Error("Yikes")); // lazy
 const s3: string = anOption.fold(
