@@ -17,6 +17,8 @@
 
 - Referential transparency (geen side-effects)
 
+- Geen 'variabelen' (immutability)
+
 - Patronen om functies te combineren
 
 @ulend
@@ -136,6 +138,12 @@ const revFormat = swapper(format);
 +++
 
 ### Handige datatypes
+
+* `Option`
+
+* `Either`
+
+* `Validation`
 
 +++
 
@@ -279,7 +287,6 @@ const s3: string = anOption.fold(
 
 +++
 
-
 ### `Either<L, R>`
 
 * `type Either<L, A> = Left<L, A> | Right<L, A>`
@@ -289,8 +296,8 @@ const s3: string = anOption.fold(
 * Uitbreiding van `Some<R>`
 
 * Bijv. een berekening die foutwaarden propageert
-  * Links = foutwaarde
-  * Rechts = succes
+   * Links = foutwaarde
+   * Rechts = succes
   
 +++
 
@@ -304,12 +311,18 @@ parse("Geen getal")("5"); // right(5)
 parse("Geen getal")("$5"); // left("Geen getal")
 ```
 
++++ `Either<L, R>`
+
+* Ondersteunt ook `map`, `filter`, `chain`, `fold`, ...
+
 * Rechts preferentieel
 
 ```
 right(12).map(double) // right(24)
 left(23).map(double) // left(23)
 ```
+
++++
 
 ### `Validation<L, A>`
 
@@ -331,4 +344,12 @@ Zie [kaart-reducer.ts](https://github.com/WegenenVerkeer/ng-kaart/blob/develop/s
 
 ---
 
+## Conclusie
 
+* Andere manier van denken
+
+* Meer mogelijkheden tot abstractie
+
+* Algemenere, veiligere code
+
+* Herkenbare patronen
