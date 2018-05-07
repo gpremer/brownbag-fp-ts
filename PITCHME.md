@@ -247,8 +247,11 @@ some("").filter(nonEmpty); // none
 
 ```
 const asNonEmpty = (s: string) => s.length > 0 ? some(s) : none;
+
+const id: string = ...;
 const lookUp: (id: string) => Option<Laag> = ...;
-nonEmpty("").chain(lookUp);
+
+asNonEmpty(id).chain(lookUp);
 ```
 
 +++
@@ -261,7 +264,7 @@ nonEmpty("").chain(lookUp);
 const nonEmpty 
   = (s: string) => s.length > 0;
 const asNonEmpty2 
-  = (s: string) => fromNullable(s).filter(nonEmpty);
+  = (s: string | undefined) => fromNullable(s).filter(nonEmpty);
 const asNonEmpty3 
   = (s: string) => fromPredicate(nonEmpty)(s);
 const asNonEmpty4 
@@ -269,6 +272,10 @@ const asNonEmpty4
 const asNonEmpty5 
   = pipe(fromNullable, filter(nonEmpty));
 ```
+@[1-4]
+@[5-6]
+@[7-8]
+@[9-10]
 
 +++
 
@@ -298,8 +305,10 @@ const s3: string = anOption.fold(
 * Bijv. een berekening die foutwaarden propageert
    * Links = foutwaarde
    * Rechts = succes
-  
+
 +++
+
+#### Creatie
 
 ```
 const parse = (errorMessage: string) => (input: string): Either<string, number> => {
@@ -311,7 +320,9 @@ parse("Geen getal")("5"); // right(5)
 parse("Geen getal")("$5"); // left("Geen getal")
 ```
 
-+++ `Either<L, R>`
++++ 
+
+#### Operaties
 
 * Ondersteunt ook `map`, `filter`, `chain`, `fold`, ...
 
