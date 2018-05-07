@@ -107,8 +107,8 @@ const s3 = sum3(1)(2);
 ```
 const format = (n: number, s: string) => `${n} ${s}`;
 
-format(5, "EUR");    // 5,00€
-revFormat("EUR", 5); // 5,00€
+format(5, "€");    // 5,00€
+revFormat("€", 5); // 5,00€
 
 const swapper: <A, B, C>(f: (a: A, b: B) => C) => 
                          ((b: B, a: A) => C) 
@@ -196,22 +196,8 @@ const m3: Option<number> = none;
 const m4: Option<string> = none;
 ```
 
-@[1]
-@[2]
-@[3-4]
-
-+++
-
-```
-const quote: (ms: Option<string>) => Option<string> = 
-  ms => ms.map(unsafeQuote);
-
-const c1 = quote(some("Curry"));
-const c2 = quote(none);
-```
-
 @[1-2]
-@[4-5]
+@[3-4]
 
 +++
 
@@ -287,7 +273,7 @@ const asNonEmpty5
 const s1: string = 
   anOption.getOrElseValue("<null>"); // niet-lazy
 const s2: string = 
-  anOption.getOrElse(() => throw new Error("Yikes")); // lazy
+  anOption.getOrElse(() => throw new Error("Oeps")); // lazy
 const s3: string = anOption.fold(
   () => "<null>",
   s => s
@@ -303,9 +289,9 @@ const s3: string = anOption.fold(
 
 * `type Either<L, A> = Left<L, A> | Right<L, A>`
 
-* Ofwel waarde van `L` ofwel van `R` type
+* Ofwel waarde van `L` ofwel van `A` type
 
-* Uitbreiding van `Some<R>`
+* Uitbreiding van `Some<A>`
 
 * Bijv. een berekening die foutwaarden propageert
    * Links = foutwaarde
