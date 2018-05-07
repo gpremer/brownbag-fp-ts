@@ -284,13 +284,18 @@ const asNonEmpty5
 * Van Option naar JS/TS: `toNullable`, `toUndefined`, `getOrElse`, `getOrElseValue`, `fold`
 
 ```
-const s1: string = anOption.getOrElseValue("<null>"); // niet-lazy
-const s2: string = anOption.getOrElse(() => throw new Error("Yikes")); // lazy
+const s1: string = 
+  anOption.getOrElseValue("<null>"); // niet-lazy
+const s2: string = 
+  anOption.getOrElse(() => throw new Error("Yikes")); // lazy
 const s3: string = anOption.fold(
   () => "<null>",
   s => s
 );
 ```
+@[1-2]
+@[3-4]
+@[5-8]
 
 +++
 
@@ -311,7 +316,8 @@ const s3: string = anOption.fold(
 #### Creatie
 
 ```
-const parse = (errorMessage: string) => (input: string): Either<string, number> => {
+const parse = (errorMessage: string) => 
+  (input: string): Either<string, number> => {
   const n = parseInt(input, 10)
   return isNaN(n) ? left(errorMessage) : right(n)
 }
