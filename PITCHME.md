@@ -1,4 +1,4 @@
-# functional programming met fp-ts
+# functioneel programmeren met fp-ts
 
 
 ---
@@ -38,6 +38,7 @@
 * Ontbrekende stuk van de puzzel: sterke typering
 
 * functie als waarde
+
 ```
 function double1(n: number): number {
   return 2 * n;
@@ -47,6 +48,7 @@ const double2: (n: number) => number = n => 2 * n
 ```
 @[1-3]
 @[5]
+
 +++
 
 ### Spelen met argumenten: currying
