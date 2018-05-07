@@ -7,13 +7,16 @@
 
 ---
 
-### Het fundament
+### De fundamenten
 
 @ul
 
-- Werken met functies net als met andere types
+- Werken met functies als met andere types
+
 - Als input van fucties en returnwaarde van functies (higher order functions)
+
 - Referential transparency (geen side-effects)
+
 - Patronen om functies te combineren
 
 @ulend
@@ -34,6 +37,7 @@
 
 * Ontbrekende stuk van de puzzel: sterke typering
 
+* functie als waarde
 ```
 function double1(n: number): number {
   return 2 * n;
@@ -41,7 +45,8 @@ function double1(n: number): number {
 
 const double2: (n: number) => number = n => 2 * n
 ```
-
+@[1-3]
+@[5]
 +++
 
 ### Spelen met argumenten: currying
@@ -55,6 +60,8 @@ function sum(x: number, y: number): number {
 
 const s1 = sum(1, 2);
 ```
+@[1-3]
+@[5]
 
 +++
 
@@ -71,6 +78,8 @@ function sum2(x: number): (y: number => number) {
 
 const s2 = sum2(1)(2);
 ```
+@[1-5]
+@[7]
 
 +++
 
@@ -84,25 +93,29 @@ const sum3: (x: number)
 
 const s3 = sum3(1)(2);
 ```
+@[1-2]
+@[4]
 
 +++
 
 ### Voorbeeld van higher order function
 
 ```
-format(5, "EUR");    // 5,00€
-revFormat("EUR", 5); // 5,00€
-
 const format = (n: number, s: string) => `${n} ${s}`;
 
-const revFormat = swapper(format);
+format(5, "EUR");    // 5,00€
+revFormat("EUR", 5); // 5,00€
 
 const swapper: <A, B, C>(f: (a: A, b: B) => C) => 
                          ((b: B, a: A) => C) 
                         = f => (b, a) => f(a, b);
 
-
+const revFormat = swapper(format);
 ```
+@[1-4]
+@[10]
+@[6-8]
+@[6-10]
 
 ---
 
@@ -113,12 +126,14 @@ const swapper: <A, B, C>(f: (a: A, b: B) => C) =>
 ### Intro
 
 * Implementatie van concepten uit theorie rond FP
+
 * Puur TypeScript
+
 * Uitgebreid
 
 +++
 
-### Typische datastructuren
+### Handige datatypes
 
 +++
 
@@ -126,13 +141,13 @@ const swapper: <A, B, C>(f: (a: A, b: B) => C) =>
 
 * T. Hoare: `null` = _1 billion dollar mistake_
 
-* typescript -> `undefined`
+* JavaScript -> `undefined`
 
-* typisch gevolg => run time errors
+* typisch gevolg => run time errors & omslachtige code
 
 +++
 
-#### Remediëring in JS
+#### Remediëring in TS
 
 ```
 const unsafeQuote(x: string): string = `'${x}'`;
@@ -145,35 +160,48 @@ function quote(x: string): string {
   }
 }
 
-const quote: (x: string) = x => (!!x && unsafeQuote(x)) || "";
+const quote: (x: string) = x => !!x ? unsafeQuote(x) : "";
 ```
+
+@ul
 
 * Wat met nesting?
 
 * Wat met chaining?
 
+@ulend
+
 +++
 
-#### `Option<A>` datatype (`Maybe`)
+#### `Option<A>` datatype
 
 * `type Option<A> = None<A> | Some<A>`
 
 * Kan ofwel een waarde bevatten ofwel niet
 
 ```
-  const m1: Option<number> = some(1);
-  const m2: Option<string> = some("Haskell");
-  const m3: Option<number> = none;
-  const m4: Option<string> = none;
+const m1: Option<number> = some(1);
+const m2: Option<string> = some("Haskell");
+const m3: Option<number> = none;
+const m4: Option<string> = none;
 ```
 
-```
-  const quote: (ms: Option<string>) => Option<string> = 
-    ms => ms.map(unsafeQuote);
+@[1]
+@[2]
+@[3-4]
 
-  const c1 = quote(some("Curry"));
-  const c2 = quote(none);
++++
+
 ```
+const quote: (ms: Option<string>) => Option<string> = 
+  ms => ms.map(unsafeQuote);
+
+const c1 = quote(some("Curry"));
+const c2 = quote(none);
+```
+
+@[1-2]
+@[4-5]
 
 +++
 
@@ -187,15 +215,24 @@ some("Frege").map(unsafeQuote); // some("'Frege'")
 
 ```
 
++++
+
+#### Een rijke set aan operaties
+
 * selecteer: `filter`
 
 ```
 const nonEmpty = (s: string) => s.length > 0;
+
 none.filter(nonEmpty); // none
 some("AWV").filter(nonEmpty); // some("AWV")
 some("").filter(nonEmpty); // none
 ```
-  
+ 
++++
+
+#### Een rijke set aan operaties
+
 * combineer: `chain`
 
 ```
@@ -288,7 +325,7 @@ left(23).map(double) // left(23)
 
 ## Voorbeelden uit ng-kaart
 
-Zie (kaart-reducer.ts)[https://github.com/WegenenVerkeer/ng-kaart/blob/develop/src/lib/kaart/kaart-reducer.ts]
+Zie [kaart-reducer.ts](https://github.com/WegenenVerkeer/ng-kaart/blob/develop/src/lib/kaart/kaart-reducer.ts)
 
 ---
 
